@@ -1,0 +1,54 @@
+张志刚
+核心语法
+数据库
+web前端
+web框架（开发）
+爬虫
+cmdb
+
+ftp://172.40.50.116/py2018/software/
+
+安装python3
+# tar xzf py3soft.tar.gz 
+# cd pysoft/
+# cd py3env/
+# bash setup.sh 
+
+如果是windows系统，到http://python.org上下载3.6.5安装
+
+推荐的IDE：pycharm
+社区版：免费的
+专业版：收费的
+
+http://172.40.50.116:1017
+
+查看print帮助
+>>> help(print)
+如果文档很长，按空格可以逐屏向下翻页，按回车逐行向下翻页，按q退出
+
+pythonstring
+pystr
+py_str
+
+pyStr
+
+phone  update_phone
+MyClass
+
+PEP:Python Enhanced Proposal
+
+>>> import this  # python之禅
+美胜丑，明胜暗，简胜繁
+
+
+
+
+
+
+
+
+
+
+
+
+
