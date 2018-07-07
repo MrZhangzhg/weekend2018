@@ -1,0 +1,73 @@
+员工id，员工姓名，性别，员工联系方式，部门，日期，   基本工资，奖金，工资总额
+1      zs       male  xxx        dev  2018-07-10
+1      zs       male  xxx        dev  2018-06-10
+
+
+数据冗余产生的问题：占空间、不好更新
+
+员工表：员工ID、姓名、性别、联系方式、部门ID
+工资表：日期、员工ID、基本工资、奖金、工资总额
+部门表：部门ID、部门名称
+
+1NF：第一范式，原子性（不可再分）
+联系方式：电话，email
+2NF：实体属性完全依赖于主关键字
+工资表中，没有任何字段一旦确定就能唯一标识这一行记录，所以要加入一列作为唯一标识
+如，起名为auto_id
+3NF：任何非主属性，不能依赖于其他非主属性
+工资表中的工资总额是非主属性，它依赖于另外的两个非主属性，所以工资总额就不要
+出现在数据库表中了，需要用到的时候临时计算。
+
+数据库的约束：
+１、主键约束，表需要有一个主键字段
+２、外键约束，表之间的联系，如员工所在部门id，必须出现在部门表中
+３、唯一性约束，数据在所有记录中性须唯一
+４、检查约束，可以由管理员自己定义
+５、非空约束，字段必须有值，不能不填
+
+安装mariadb-server
+[root@room8pc16 day16]# yum install -y mariadb-server
+启动服务
+[root@room8pc16 day16]# systemctl start mariadb
+设置mariadb在重启系统时自动启动
+[root@room8pc16 day16]# systemctl enable mariadb
+设置mariadb数据库管理员root的密码为tedu.cn
+[root@room8pc16 day16]# mysqladmin password tedu.cn
+访问数据库
+[root@room8pc16 day16]# mysql -uroot -ptedu.cn
+
+py3soft.tar.gz
+
+
+查看有哪些数据库
+MariaDB [(none)]> SHOW DATABASES;
+创建数据库
+MariaDB [(none)]> CREATE DATABASE tarena DEFAULT CHARSET utf8;
+进入数据库
+MariaDB [(none)]> USE tarena;
+查看数据库中有哪些表
+MariaDB [tarena]> SHOW TABLES;
+创建departments表，主键是dep_id
+MariaDB [tarena]> CREATE TABLE departments(dep_id INT, dep_name VARCHAR(20), PRIMARY KEY(dep_id));
+查看创建表的标准SQL语句
+MariaDB [tarena]> SHOW CREATE TABLE departments;
+查看表结构
+MariaDB [tarena]> DESC departments;
+删除表
+MariaDB [tarena]> drop table departments;
+创建departments表，主键是dep_id，部门名必须唯一，不能为空
+MariaDB [tarena]> CREATE TABLE departments(dep_id int, dep_name varchar(20) NOT NULL UNIQUE, PRIMARY KEY(dep_id));
+创建员工表
+MariaDB [tarena]> CREATE TABLE employees(emp_id int, emp_name varchar(20) NOT NULL UNIQUE, gender enum("male", "female"), phone char(11), email varchar(50), dep_id int, PRIMARY KEY(emp_id), FOREIGN KEY(dep_id) REFERENCES departments(dep_id));
+插入数据
+MariaDB [tarena]> INSERT INTO departments VALUES(1, '人事部');
+查询
+MariaDB [tarena]> SELECT * FROM departments;
+创建工资表
+MariaDB [tarena]> CREATE TABLE salary(auto_id int AUTO_INCREMENT, date DATE, emp_id int, basic int, awards int, PRIMARY KEY(auto_id), FOREIGN KEY(emp_id) REFERENCES employees(emp_id));
+插入数据
+MariaDB [tarena]> INSERT INTO employees VALUES(1, '林冲', 'male', '13344556688', 'lc@tedu.cn', 1);
+MariaDB [tarena]> INSERT INTO salary(date, emp_id, basic, awards) VALUES('2018-07-07', 1, 10000, 2000);
+
+
+
