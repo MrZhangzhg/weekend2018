@@ -61,10 +61,5 @@ MariaDB [tarena]> SELECT * FROM employees WHERE emp_name IN ('bob', 'alice');
 4、访问
 http://127.0.0.1/phpmyadmin
 
-
-
-
-
-
-
-
+安装pymysql
+[root@room8pc16 phpMyAdmin]# pip3 install pymysql
