@@ -1,0 +1,70 @@
+LAMP/WAMP
+windows
+Linux操作系统
+Apache web服务器
+Mysql数据库
+PHP
+
+DDL:数据库定义语言  如创建语句
+DCL:数据库控制语言  如授权语句
+DML:数据库操作语言  如增删改查语句
+DQL:数据库查询语言  select语句
+
+MariaDB [tarena]> INSERT INTO departments VALUES(2, 'dev');
+清空salary表
+MariaDB [tarena]> DELETE FROM salary;
+删除满足条件的记录
+MariaDB [tarena]> DELETE FROM employees WHERE emp_id=1;
+把1号部门更名为hr
+MariaDB [tarena]> UPDATE departments SET dep_name='hr' WHERE dep_id=1;
+
+http://down.51cto.com  《mysql必知必会》
+
+查询员工表所有内容
+MariaDB [tarena]> SELECT * FROM employees;
+只查询名字和电话号码
+MariaDB [tarena]> INSERT INTO employees VALUES(2, 'tom', 'male', '13311223366', 'tom@tedu.cn', 1);
+MariaDB [tarena]> SELECT emp_name, phone FROM employees;
+MariaDB [tarena]> SELECT emp_name AS 姓名, phone AS 电话号码 FROM employees;
+查询1号部门员工的电话
+MariaDB [tarena]> SELECT emp_name AS 姓名, phone AS 电话号码 FROM employees WHERE dep_id=1;
+查询名字以j开头的员工
+MariaDB [tarena]> SELECT emp_name AS 姓名, phone AS 电话号码 FROM employees WHERE emp_name like 'j%';
+查询employees总行数
+MariaDB [tarena]> SELECT count(*) FROM employees;
+查询员工表和部门表，返回笛卡尔积
+MariaDB [tarena]> SELECT e.emp_name, d.dep_name FROM employees AS e JOIN departments as d;
+查询员工所在的部门
+MariaDB [tarena]> SELECT e.emp_name, d.dep_name FROM employees AS e JOIN departments as d WHERE e.dep_id=d.dep_id;
+查询工资
+MariaDB [tarena]> SELECT emp_id,  basic + awards FROM salary;
+MariaDB [tarena]> SELECT emp_id,  basic + awards AS 工资 FROM salary;
+MariaDB [tarena]> SELECT e.emp_name AS 姓名, s.basic+s.awards AS 工资 FROM employees AS e JOIN salary AS s WHERE e.emp_id=s.emp_id;
+MariaDB [tarena]> SELECT e.emp_name AS 姓名, s.basic+s.awards AS 工资 FROM employees AS e JOIN salary AS s WHERE e.emp_id=s.emp_id ORDER BY 工资;
+MariaDB [tarena]> SELECT e.emp_name AS 姓名, s.basic+s.awards AS 工资 FROM employees AS e JOIN salary AS s WHERE e.emp_id=s.emp_id ORDER BY 工资 DESC;
+查工资最高的前三项
+MariaDB [tarena]> SELECT e.emp_name AS 姓名, s.basic+s.awards AS 工资 FROM employees AS e JOIN salary AS s WHERE e.emp_id=s.emp_id ORDER BY 工资 DESC LIMIT 3;
+查工资第二到第四的三项
+MariaDB [tarena]> SELECT e.emp_name AS 姓名, s.basic+s.awards AS 工资 FROM employees AS e JOIN salary AS s WHERE e.emp_id=s.emp_id ORDER BY 工资 DESC LIMIT 1, 3;
+查询bob和alice的情况
+MariaDB [tarena]> SELECT * FROM employees WHERE emp_name='bob' OR emp_name='alice';
+MariaDB [tarena]> SELECT * FROM employees WHERE emp_name IN ('bob', 'alice');
+
+
+配置phpmyadmin
+1、解压
+[root@room8pc16 software]# tar xzf py3soft.tar.gz
+2、切换目录
+[root@room8pc16 software]# cd pysoft/phpMyAdmin/
+3、运行安装脚本
+[root@room8pc16 phpMyAdmin]# bash setup.sh
+4、访问
+http://127.0.0.1/phpmyadmin
+
+
+
+
+
+
+
+
